@@ -65,16 +65,17 @@ endfunction "}}}2
 function! s:Configure() "{{{2
 
     "### Configure PairClamp ### {{{3
-    if exists('g:pairtools_'.&ft.'_pairclamp') && g:pairtools_{&ft}_pairclamp
+    if !exists('g:pairtools_'.&ft.'_pairclamp') ||
+                \ (exists('g:pairtools_'.&ft.'_pairclamp') && g:pairtools_{&ft}_pairclamp)
         
         " Options are turn off by default now...
-        call s:SetOption('AutoClose', 0)
-        call s:SetOption('ClosePairs', "[:],(:),{:}")
+        call s:SetOption('AutoClose', 1)
+        call s:SetOption('ClosePairs', "[:],(:),{:},':',\":\"")
         call s:SetOption('ForcePairs', 0)
-        call s:SetOption('SmartClose', 0)
+        call s:SetOption('SmartClose', 1)
         call s:SetOption('SmartCloseRules', '\w')
-        call s:SetOption('Apostrophe', 0)
-        call s:SetOption('Antimagic', 0)
+        call s:SetOption('Apostrophe', 1)
+        call s:SetOption('Antimagic', 1)
         call s:SetOption('AntimagicField', "String,Comment")
         
         let uniq = pairclamp#UniquifyCloseKeys()
@@ -119,14 +120,16 @@ function! s:Configure() "{{{2
     endif "}}}3
 
     "### Configure Jigsaw ### {{{3
-    if exists('g:pairtools_'.&ft.'_jigsaw') && g:pairtools_{&ft}_jigsaw
+    if !exists('g:pairtools_'.&ft.'_jigsaw') ||
+                \ (exists('g:pairtools_'.&ft.'_jigsaw') && g:pairtools_{&ft}_jigsaw)
 
         call s:SetIMap('<BS>', 'jigsaw#Backspace', '')
         call s:SetIMap('<CR>', 'jigsaw#CarriageReturn', '')
 
-		if exists('g:pairtools_'.&ft.'_pairclamp') && g:pairtools_{&ft}_pairclamp
-			call s:SetOption('PCEraser',   0)
-			call s:SetOption('PCExpander', 0)
+		if !exists('g:pairtools_'.&ft.'_pairclamp') ||
+                    \ (exists('g:pairtools_'.&ft.'_pairclamp') && g:pairtools_{&ft}_pairclamp)
+			call s:SetOption('PCEraser',   1)
+			call s:SetOption('PCExpander', 1)
 
 			call jigsaw#AddBackspaceHook(b:PTPCEraser ? 'pairclamp#Erase' : 'jigsaw#NoErase', "\<BS>")
 			call jigsaw#AddCarriageReturnHook(b:PTPCExpander ? 'pairclamp#Expand' : 'jigsaw#NoExpand', "")
