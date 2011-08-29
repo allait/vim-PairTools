@@ -82,7 +82,7 @@ function! s:IsAllowClose(Key)
         return 0
     endif
 
-    if b:PTApostrophe && line[column - 1] =~ '\a'
+    if a:Key == "'" && b:PTApostrophe && line[column - 1] =~ '\a'
         return 0
     endif
 
