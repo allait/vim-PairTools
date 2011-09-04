@@ -98,8 +98,11 @@ endfunction
 
 
 function! s:CountPairs(Key)
+    if !b:PTCountPairs
 
-    if a:Key == b:PTWorkPairs[a:Key]
+        let unpaired = 0
+
+    elseif a:Key == b:PTWorkPairs[a:Key]
 
         let unpaired = count(split(s:RemoveMatchedPairs(), '\zs'), a:Key)
 

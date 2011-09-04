@@ -75,6 +75,7 @@ function! s:Configure() "{{{2
         call s:SetOption('SmartClose', 1)
         call s:SetOption('SmartCloseRules', '\w')
         call s:SetOption('Apostrophe', 1)
+        call s:SetOption('CountPairs', 1)
         call s:SetOption('Antimagic', 1)
         call s:SetOption('AntimagicField', "String,Comment")
         
